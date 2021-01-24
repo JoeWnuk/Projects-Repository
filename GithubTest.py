@@ -61,7 +61,7 @@ for x in range(len(predicted)):
 
 
 # Drawing and plotting model
-plot = "G1"
+plot = "G2"
 plt.scatter(data[plot], data["G3"])
 plt.legend(loc=4)
 plt.xlabel(plot)
