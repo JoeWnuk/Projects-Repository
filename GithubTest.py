@@ -20,7 +20,7 @@ data = pd.read_csv("student-mat.csv", sep=";")
 
 predict = "G3"
 
-data = data[["G1", "G2", "absences","failures", "studytime","G3"]]
+data = data[["G1", "G2", "absences","failures", "studytime","G3","health", "freetime"]]
 # add more attributes butI will have to clean some data first
 
 
@@ -31,7 +31,7 @@ x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y
 
 # TRAIN MODEL MULTIPLE TIMES FOR BEST SCORE
 best = 0
-for _ in range(20):
+for _ in range(50):
     x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
 
     linear = linear_model.LinearRegression()
@@ -44,6 +44,7 @@ for _ in range(20):
         best = acc
         with open("studentgrades.pickle", "wb") as f:
             pickle.dump(linear, f)
+print("best =" + str(best))
 
 # LOAD MODEL
 pickle_in = open("studentgrades.pickle", "rb")
