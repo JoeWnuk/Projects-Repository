@@ -12,4 +12,7 @@ accuracy. But first I will need to clean some of the data so it can be used.
 One example is that I want to use the "sex" attribute but they are currently a string so I will need to conver them
 to a integer.
  
-THis was a great introduction to machine learning and how to use Git and GitHub.
+This was a great introduction to machine learning and how to use Git and GitHub.   
+
+
+Joe
