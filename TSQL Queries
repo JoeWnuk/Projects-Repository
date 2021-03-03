@@ -1,0 +1,48 @@
+A select few queries showcasing the level of SQL I am currently comfortable using (MS SQL Server)
+
+
+
+--Creating First Table
+CREATE TABLE tblEmployee
+(EmployeeNumber INT PRIMARY KEY NOT NULL,
+EmployeeFirstName VARCHAR(50) NOT NULL,
+EmployeeMiddleName VARCHAR(50) NULL,
+EmployeeLastName VARCHAR(50) NOT NULL,
+EmployeeGovernmentID CHAR(10) NULL,
+DateOfBirth DATE NOT NULL)
+
+--Add Column
+ALTER TABLE tblEmployee
+ADD Department VARCHAR(20) NOT NULL;
+
+SELECT left(EmployeeLastName, 1) as Initial, Count(*) as CountofInitial
+FROM tblEmployee
+WHERE DateOfBirth > '19860101'
+GROUP BY left(EmployeeLastName, 1)
+HAVING Count(*) >= 20
+ORDER BY Count(*) Desc
+
+--Adding Second and Third Table
+CREATE TABLE tblTransaction (
+Amount smallmoney Not Null,
+DateOfTransaction datetime2 NULL,
+EmployeeNumber int Not Null)
+SELECT DISTINCT Department, convert(varchar(30), N'') as DepartmentHead
+INTO tblDepartment
+FROM tblEmployee
+
+--Joining Three Tables
+select D.DepartmentHead, Sum(T.Amount) as SumOfAmount, 
+Count(E.EmployeeNumber) as NumberOfEmployees
+from tblDepartment as D
+left join tblEmployee as E
+on D.Department = E.Department
+left join tblTransaction T
+on E.EmployeeNumber = T.EmployeeNumber
+group by D.DepartmentHead
+order by D.DepartmentHead
+
+--Adding Foreign Key Constraint
+Alter Table tblTransaction
+ADD CONSTRAINT FK_tblTransaction_EmployeeNumber FOREIGN KEY (EmployeeNumber)
+REFERENCES tblEmployee(EmployeeNumber)
